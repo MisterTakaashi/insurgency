@@ -1,0 +1,7 @@
+"insurgency"
+{
+	"base"		"base"
+	"title"		"Insurgency"
+	"maps"		"^rp_"
+	"menusystem"	"1"
+}
