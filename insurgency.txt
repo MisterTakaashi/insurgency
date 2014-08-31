@@ -2,6 +2,6 @@
 {
 	"base"		"base"
 	"title"		"Insurgency"
-	"maps"		"^rp_"
+	"maps"		"^ins_"
 	"menusystem"	"1"
 }
