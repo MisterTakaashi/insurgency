@@ -107,7 +107,7 @@ if SERVER then
 	local function Suppression_Think()
 		local CT = CurTime()
 		local FT = FrameTime()
-		
+        
 		for k, v in pairs(player.GetAll()) do
 			if Alive(v) then
 				if v.Suppression > 0 then

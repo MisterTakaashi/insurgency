@@ -4,11 +4,15 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function GM:PlayerSetModel(ply)
-    ply:SetModel("models/player/odessa.mdl")
+    if (ply:Team() == 1) then
+        ply:SetModel("models/player/kuma/alqaeda_commando.mdl") // Addon n°208348503
+    else
+        ply:SetModel("models/minson97/bo2/seal.mdl") // Addon n°? Non definitif
+    end
 end
 
 function GiveWeapons(ply)
-    if(ply:Team() != 1001) then
+    if (ply:Team() != 1001) then
         ply:Give("fas2_ak47")
     end
     ply:Say("Mon équipe est: "..ply:Team().." soit: "..team.GetName(ply:Team()))
