@@ -8,7 +8,9 @@ function GM:PlayerSetModel(ply)
 end
 
 function GiveWeapons(ply)
-    ply:Give("fas2_ak47")
+    if(ply:Team() != 1001) then
+        ply:Give("fas2_ak47")
+    end
     ply:Say("Mon équipe est: "..ply:Team().." soit: "..team.GetName(ply:Team()))
 end
 hook.Add("PlayerSpawn", "GiveWeponsSpawn", GiveWeapons)
