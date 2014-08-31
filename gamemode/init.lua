@@ -12,3 +12,12 @@ function GiveWeapons(ply)
     ply:Say("Mon équipe est: "..ply:Team().." soit: "..team.GetName(ply:Team()))
 end
 hook.Add("PlayerSpawn", "GiveWeponsSpawn", GiveWeapons)
+
+-- hook.Add("EntityTakeDamage", "AntiTeamKill", function(ent, dmginfo)
+    -- if ent:IsPlayer() then
+        -- local Inflictor = dmginfo:GetInflictor()
+        -- if Inflictor:IsPlayer() then
+            -- print(Inflictor:Nick().." vient de tirer sur "..ent:Nick().." avec "..dmginfo:GetDamage().." points de dégats")
+        -- end
+    -- end
+-- end)

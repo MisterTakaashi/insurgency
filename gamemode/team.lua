@@ -28,6 +28,7 @@ concommand.Add("changeteam", function(ply, cmd, args)
     if ply:IsAdmin() then
         ply:SetTeam(tonumber(args[1]))
         print("Votre équipe a été changée.")
+        ply:Spawn()
     else
         ply:PrintMessage(HUD_PRINTTALK, "Vous devez être administrateur pour faire cette action !")
     end
