@@ -3,9 +3,5 @@ GM.Author = "MisterTakaashi"
 GM.Email = "mistertakaashi@fancysoftware.net"
 GM.Website = "http://www.fancysoftware.net"
 
-include("team.lua")
+include("sh_team.lua")
 include("sh_suppr.lua")
-
-function GM:Initialize()
-	-- Do stuff
-end

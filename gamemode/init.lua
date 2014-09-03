@@ -1,5 +1,12 @@
 AddCSLuaFile("cl_init.lua")
+AddCSLuaFile("cl_hud.lua")
+AddCSLuaFile("cl_spawnmenu.lua")
 AddCSLuaFile("shared.lua")
+AddCSLuaFile("sh_suppr.lua")
+AddCSLuaFile("sh_team.lua")
+
+resource.AddFile("materials/insurgent.png")
+resource.AddFile("materials/security.png")
 
 include("shared.lua")
 
@@ -12,12 +19,44 @@ function GM:PlayerSetModel(ply)
 end
 
 function GiveWeapons(ply)
+    ply:StripWeapons()
     if (ply:Team() != 1001) then
-        ply:Give("fas2_ak47")
+        if(ply:Team() == 1) then
+            ply:Give("fas2_ak47")
+        else
+            ply:Give("fas2_mp5a5")
+        end
     end
     ply:Say("Mon équipe est: "..ply:Team().." soit: "..team.GetName(ply:Team()))
 end
 hook.Add("PlayerSpawn", "GiveWeponsSpawn", GiveWeapons)
+
+util.AddNetworkString("InitialSpawnMenu")
+
+local function spawnInitialMenu(ply)
+	net.Start("InitialSpawnMenu")
+        net.WriteString(ply:Name())
+    net.Send(ply)
+end
+hook.Add("PlayerInitialSpawn", "InitialSpawnMenu", spawnInitialMenu)
+
+util.AddNetworkString("ChooseTeamMenu")
+
+net.Receive("ChooseTeamMenu", function(len, ply)
+    local equipe = net.ReadString()
+    print("L'equipe c'est:"..equipe)
+    print(ply:Name())
+    
+    if (equipe == "insurgent") then
+        ply:SetTeam(1)
+        ply:Spawn()
+        ply:SetPos(Vector(-2022, -1540, 106))
+    else
+        ply:SetTeam(2)
+        ply:Spawn()
+        ply:SetPos(Vector(-1180, 1360, 103))
+    end
+end)
 
 -- hook.Add("EntityTakeDamage", "AntiTeamKill", function(ent, dmginfo)
     -- if ent:IsPlayer() then
@@ -27,3 +66,9 @@ hook.Add("PlayerSpawn", "GiveWeponsSpawn", GiveWeapons)
         -- end
     -- end
 -- end)
+
+function OutOfGUI(ply)
+	umsg.Start("ToggleClicker", ply)
+	umsg.End()
+end
+hook.Add("ShowSpare1", "OutOfGUIHook", OutOfGUI)
