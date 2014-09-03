@@ -10,6 +10,7 @@ resource.AddFile("materials/insurgent.png")
 resource.AddFile("materials/security.png")
 
 include("shared.lua")
+include("sv_findpos.lua")
 
 function GM:PlayerSetModel(ply)
     if (ply:Team() == 1) then
@@ -41,6 +42,7 @@ function spawnInitialMenu(ply)
     ply:SetRunSpeed(265)
     ply:SetWalkSpeed(170)
     ply:SetHealth(50)
+    ply:CrosshairDisable()
 end
 hook.Add("PlayerInitialSpawn", "InitialSpawnMenu", spawnInitialMenu)
 
@@ -54,11 +56,14 @@ net.Receive("ChooseTeamMenu", function(len, ply)
     if (equipe == "insurgent") then
         ply:SetTeam(1)
         ply:Spawn()
-        ply:SetPos(Vector(-2022, -1540, 106))
+        ply:SetPos(findEmptyPos(Vector(-2022, -1540, 106), nil, 200, 10, Vector(16, 16, 64)))
+        ply:CrosshairDisable()
+        -- findEmptyPos(r, {ply}, 200, 10, Vector(2, 2, 2))
     else
         ply:SetTeam(2)
         ply:Spawn()
-        ply:SetPos(Vector(-1180, 1360, 103))
+        ply:SetPos(findEmptyPos(Vector(-1180, 1360, 103), nil, 200, 10, Vector(16, 16, 64)))
+        ply:CrosshairDisable()
     end
 end)
 
@@ -71,6 +76,7 @@ function spawnTP(ply)
     ply:SetRunSpeed(265)
     ply:SetWalkSpeed(170)
     ply:SetHealth(50)
+    ply:CrosshairDisable()
 end
 hook.Add("PlayerSpawn", "SpawnTP", spawnTP)
 

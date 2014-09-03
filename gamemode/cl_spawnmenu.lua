@@ -4,8 +4,8 @@ function changementTeam()
     
     --GUIToggled = not GUIToggled --Souris libérée
         gui.EnableScreenClicker(true)
-        
-    if (not DermaImageButton:IsVisible() and not DermaImageButtonDroite:IsVisible()) then
+    
+    if (DermaImageButton == nil or (not DermaImageButton:IsVisible() and not DermaImageButtonDroite:IsVisible())) then
         DermaImageButton = vgui.Create("DImageButton")
         DermaImageButton:SetPos(0, 0)
         DermaImageButton:SetSize(ScrW()/2, ScrH())
