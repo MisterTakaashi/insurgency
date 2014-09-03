@@ -1,6 +1,7 @@
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("cl_hud.lua")
 AddCSLuaFile("cl_spawnmenu.lua")
+AddCSLuaFile("cl_legmod.lua")
 AddCSLuaFile("shared.lua")
 AddCSLuaFile("sh_suppr.lua")
 AddCSLuaFile("sh_team.lua")
@@ -72,6 +73,7 @@ function spawnTP(ply)
     ply:SetHealth(50)
 end
 hook.Add("PlayerSpawn", "SpawnTP", spawnTP)
+
 -- hook.Add("EntityTakeDamage", "AntiTeamKill", function(ent, dmginfo)
     -- if ent:IsPlayer() then
         -- local Inflictor = dmginfo:GetInflictor()
