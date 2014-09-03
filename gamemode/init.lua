@@ -27,16 +27,19 @@ function GiveWeapons(ply)
             ply:Give("fas2_mp5a5")
         end
     end
-    ply:Say("Mon équipe est: "..ply:Team().." soit: "..team.GetName(ply:Team()))
+    --ply:Say("Mon équipe est: "..ply:Team().." soit: "..team.GetName(ply:Team()))
 end
 hook.Add("PlayerSpawn", "GiveWeponsSpawn", GiveWeapons)
 
 util.AddNetworkString("InitialSpawnMenu")
 
-local function spawnInitialMenu(ply)
+function spawnInitialMenu(ply)
 	net.Start("InitialSpawnMenu")
         net.WriteString(ply:Name())
     net.Send(ply)
+    ply:SetRunSpeed(265)
+    ply:SetWalkSpeed(170)
+    ply:SetHealth(50)
 end
 hook.Add("PlayerInitialSpawn", "InitialSpawnMenu", spawnInitialMenu)
 
@@ -44,8 +47,8 @@ util.AddNetworkString("ChooseTeamMenu")
 
 net.Receive("ChooseTeamMenu", function(len, ply)
     local equipe = net.ReadString()
-    print("L'equipe c'est:"..equipe)
-    print(ply:Name())
+    -- print("L'equipe c'est:"..equipe)
+    -- print(ply:Name())
     
     if (equipe == "insurgent") then
         ply:SetTeam(1)
@@ -58,6 +61,17 @@ net.Receive("ChooseTeamMenu", function(len, ply)
     end
 end)
 
+function spawnTP(ply)
+    if (ply:Team() == 1) then
+        ply:SetPos(Vector(-2022, -1540, 106))
+    else
+        ply:SetPos(Vector(-1180, 1360, 103))
+    end
+    ply:SetRunSpeed(265)
+    ply:SetWalkSpeed(170)
+    ply:SetHealth(50)
+end
+hook.Add("PlayerSpawn", "SpawnTP", spawnTP)
 -- hook.Add("EntityTakeDamage", "AntiTeamKill", function(ent, dmginfo)
     -- if ent:IsPlayer() then
         -- local Inflictor = dmginfo:GetInflictor()
